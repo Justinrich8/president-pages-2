@@ -32,9 +32,9 @@
         "c_photoURL",
         "c_numberOfTerms",
         "c_presidentNumber",
-        "c_signedDocument[].name",
-        "c_signedDocument[].title",
-        "c_signedDocument[].description",
+        "c_signedDocument.name",
+        //"c_signedDocument.title",
+        //"c_signedDocument.description",
         "slug"
         ],
       // Defines the scope of entities that qualify for this stream.   
@@ -93,11 +93,15 @@
         <div className="flex flex-col items-center bg-gray-100 p-4">
           <div className="mb-8">
             <h2 className="font-bold text-2xl">{name}</h2>
+            <div className="mt-8">
+            <img src={c_photoURL} alt="President" className="w-48 h-auto" />
+          </div>
             <ul className="list-disc pl-4">
               <li>President Number: {c_presidentNumber}</li>
               <li>Number of Terms: {c_numberOfTerms}</li>
             </ul>
           </div>
+          <h3 className="font-bold text-lg mb-4">Related Documents</h3>
           <div className="grid grid-cols-3 gap-4">
             {
                 c_signedDocument &&
@@ -106,14 +110,11 @@
                     key={index}
                     className="bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
                     >
-                    <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                    <p>{item.description}</p>
+                    <h3 className="font-bold text-lg mb-2">{item.name}</h3>
+                    <p>{item.name}</p>
                     </div>
                 ))
             }
-          </div>
-          <div className="mt-8">
-            <img src={c_photoURL} alt="President" className="w-48 h-auto" />
           </div>
         </div>
       );

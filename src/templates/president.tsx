@@ -32,7 +32,9 @@
         "c_photoURL",
         "c_numberOfTerms",
         "c_presidentNumber",
-        "c_signedDocument.name",
+        "c_signedDocument[].name",
+        "c_signedDocument[].title",
+        "c_signedDocument[].description",
         "slug"
         ],
       // Defines the scope of entities that qualify for this stream.   
@@ -96,20 +98,20 @@
               <li>Number of Terms: {c_numberOfTerms}</li>
             </ul>
           </div>
-    
           <div className="grid grid-cols-3 gap-4">
-            {c_signedDocument &&
-              c_signedDocument.map((document: { title: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; description: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
-                <div
-                  key={index}
-                  className="bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
-                >
-                  <h3 className="font-bold text-lg mb-2">{document.title}</h3>
-                  <p>{document.description}</p>
-                </div>
-              ))}
+            {
+                c_signedDocument &&
+                c_signedDocument.map((item: any, index: any) => (
+                    <div
+                    key={index}
+                    className="bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
+                    >
+                    <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                    <p>{item.description}</p>
+                    </div>
+                ))
+            }
           </div>
-    
           <div className="mt-8">
             <img src={c_photoURL} alt="President" className="w-48 h-auto" />
           </div>

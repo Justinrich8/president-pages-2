@@ -28,8 +28,10 @@
       // directly as props to the default exported function.
       fields: [
         "id",
-        "name", 
-        "slug"
+        "name",
+        "c_photoURL",
+        "c_numberOfTerms",
+        "c_presidentNumber"
         ],
       // Defines the scope of entities that qualify for this stream.
       filter: {
@@ -47,7 +49,7 @@
    * Defines the path that the generated file will live at for production.
    */
   export const getPath: GetPath<TemplateProps> = ({ document }) => {
-    return document.slug ?? document.name;
+    return document.name;
   };
   
   /**
@@ -79,17 +81,16 @@
    * This is the main template. It can have any name as long as it's the default export.
    * The props passed in here are the direct stream document defined by `config`.
    */
-  const EntityPage: Template<TemplateRenderProps> = ({
-    relativePrefixToRoot,
-    path,
-    document,
-  }) => {
-    const { name } = document;
+   const EntityPage: Template<TemplateRenderProps> = ({ document }) => {
+    const { name, c_photoURL, c_numberOfTerms, c_presidentNumber } = document;
   
     return (
       <>
         <h1>Entity Powered Page</h1>
         <div>Entity Name: {name}</div>
+        <img src={c_photoURL} alt="President" />
+        <div>Number of Terms: {c_numberOfTerms}</div>
+        <div>President Number: {c_presidentNumber}</div>
       </>
     );
   };

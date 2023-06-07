@@ -31,9 +31,12 @@
         "name",
         "c_photoURL",
         "c_numberOfTerms",
-        "c_presidentNumber"
+        "c_presidentNumber",
+        "c_signedDocument.name",
+        "slug"
         ],
-      // Defines the scope of entities that qualify for this stream.
+      // Defines the scope of entities that qualify for this stream.   
+      
       filter: {
         entityTypes: ["ce_wikiBio"],
       },
@@ -82,18 +85,37 @@
    * The props passed in here are the direct stream document defined by `config`.
    */
    const EntityPage: Template<TemplateRenderProps> = ({ document }) => {
-    const { name, c_photoURL, c_numberOfTerms, c_presidentNumber } = document;
+    const { name, c_photoURL, c_numberOfTerms, c_presidentNumber, c_signedDocument} = document;
   
     return (
-      <>
-        <h1>Entity Powered Page</h1>
-        <div>Entity Name: {name}</div>
-        <img src={c_photoURL} alt="President" />
-        <div>Number of Terms: {c_numberOfTerms}</div>
-        <div>President Number: {c_presidentNumber}</div>
-      </>
-    );
-  };
-  
+        <div className="flex flex-col items-center bg-gray-100 p-4">
+          <div className="mb-8">
+            <h2 className="font-bold text-2xl">{name}</h2>
+            <ul className="list-disc pl-4">
+              <li>President Number: {c_presidentNumber}</li>
+              <li>Number of Terms: {c_numberOfTerms}</li>
+            </ul>
+          </div>
+    
+          <div className="grid grid-cols-3 gap-4">
+            {c_signedDocument &&
+              c_signedDocument.map((document: { title: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; description: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
+                <div
+                  key={index}
+                  className="bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
+                >
+                  <h3 className="font-bold text-lg mb-2">{document.title}</h3>
+                  <p>{document.description}</p>
+                </div>
+              ))}
+          </div>
+    
+          <div className="mt-8">
+            <img src={c_photoURL} alt="President" className="w-48 h-auto" />
+          </div>
+        </div>
+      );
+    };
+    
   export default EntityPage;
   
